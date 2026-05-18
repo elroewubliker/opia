@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NILOPIA — Website Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================
+     NILOPIA HOMEPAGE BLUEPRINT
+     Design System & CSS Variables
+  ============================================ */
+  :root {
+    --green-deep:    #0A3D1F;
+    --green-mid:     #1A6B3A;
+    --green-bright:  #28A457;
+    --green-light:   #D4EDD9;
+    --green-mist:    #EAF6EC;
+    --white:         #FFFFFF;
+    --off-white:     #F8FAF8;
+    --pink-vivid:    #E8336D;
+    --pink-soft:     #FF6B99;
+    --pink-blush:    #FFE0EB;
+    --text-dark:     #0D1E14;
+    --text-mid:      #3D5445;
+    --text-light:    #7A9B84;
+
+    --font-display:  'Playfair Display', Georgia, serif;
+    --font-body:     'DM Sans', sans-serif;
+    --font-mono:     'Space Mono', monospace;
+
+    --radius-sm: 6px;
+    --radius-md: 14px;
+    --radius-lg: 28px;
+    --radius-pill: 100px;
+
+    --shadow-green: 0 8px 40px rgba(10,61,31,0.15);
+    --shadow-pink:  0 4px 24px rgba(232,51,109,0.28);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--off-white);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ============================================
+     BLUEPRINT HEADER (Meta/Guide Layer)
+  ============================================ */
+  .blueprint-banner {
+    background: var(--text-dark);
+    color: var(--green-light);
+    text-align: center;
+    padding: 10px 20px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+  .blueprint-banner span { color: var(--pink-soft); }
+
+  /* Section annotation labels */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--text-dark);
+    color: var(--pink-soft);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 18px;
+  }
+  .section-label::before {
+    content: '◈';
+    font-size: 12px;
+  }
+
+  /* Design notes */
+  .design-note {
+    background: rgba(255,107,153,0.08);
+    border-left: 3px solid var(--pink-vivid);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 10px 16px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-mid);
+    font-style: italic;
+  }
+  .design-note strong { color: var(--pink-vivid); font-style: normal; }
+
+  /* ============================================
+     POSITIONING STRATEGY SECTION
+  ============================================ */
+  .strategy-section {
+    background: var(--green-deep);
+    color: var(--white);
+    padding: 80px 40px;
+  }
+  .strategy-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .strategy-section h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .strategy-section h1 em {
+    color: var(--pink-soft);
+    font-style: normal;
+  }
+  .tagline-sub {
+    font-size: 1.05rem;
+    color: var(--green-light);
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .strategy-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .strategy-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-green);
+  }
+  .strategy-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--pink-vivid);
+  }
+  .strategy-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--pink-soft);
+    margin-bottom: 12px;
+  }
+  .strategy-card p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+  }
+  .audience-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 10px;
+  }
+  .badge-farmer { background: rgba(40,164,87,0.3); color: #7AE89B; }
+  .badge-investor { background: rgba(232,51,109,0.3); color: var(--pink-soft); }
+  .badge-both { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
+
+  /* ============================================
+     SHARED LAYOUT UTILITIES
+  ============================================ */
+  .section-wrap {
+    padding: 90px 40px;
+  }
+  .section-wrap.tight { padding: 60px 40px; }
+  .inner {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--pink-vivid);
+    margin-bottom: 14px;
+    display: block;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    color: var(--green-deep);
+    margin-bottom: 20px;
+  }
+  .section-title em {
+    font-style: normal;
+    color: var(--green-bright);
+  }
+  .section-body {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    max-width: 640px;
+    line-height: 1.8;
+  }
+  hr.divider {
+    border: none;
+    height: 1px;
+    background: var(--green-light);
+    margin: 0;
+  }
+
+  /* ============================================
+     BUTTONS
+  ============================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 15px 32px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition: all 0.22s ease;
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0.3px;
+  }
+  .btn-pink {
+    background: var(--pink-vivid);
+    color: var(--white);
+    box-shadow: var(--shadow-pink);
+  }
+  .btn-pink:hover {
+    background: #C4215A;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(232,51,109,0.4);
+  }
+  .btn-outline-white {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255,255,255,0.5);
+  }
+  .btn-outline-white:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--white);
+  }
+  .btn-outline-green {
+    background: transparent;
+    color: var(--green-deep);
+    border: 2px solid var(--green-mid);
+  }
+  .btn-outline-green:hover {
+    background: var(--green-light);
+  }
+  .btn-arrow::after { content: ' →'; }
+
+  /* ============================================
+     SECTION 1 — NAV
+  ============================================ */
+  .nav-preview {
+    background: var(--white);
+    border-bottom: 1px solid var(--green-light);
+    padding: 0 40px;
+    position: relative;
+  }
+  .nav-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: var(--green-deep);
+    letter-spacing: -1px;
+  }
+  .nav-logo span { color: var(--pink-vivid); }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    text-decoration: none;
+    letter-spacing: 0.4px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green-deep); }
+  .nav-ctas { display: flex; gap: 12px; align-items: center; }
+  .nav-ctas .btn { padding: 10px 22px; font-size: 0.85rem; }
+
+  /* ============================================
+     SECTION 2 — HERO
+  ============================================ */
+  .hero-section {
+    background: var(--green-deep);
+    min-height: 92vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 100px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 80% at 60% 50%, rgba(26,107,58,0.6) 0%, transparent 70%),
+      radial-gradient(circle at 85% 20%, rgba(232,51,109,0.12) 0%, transparent 50%);
+  }
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .hero-bg-circle2 {
+    position: absolute;
+    right: 80px; bottom: -120px;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(232,51,109,0.15);
+    border: 1px solid rgba(232,51,109,0.4);
+    color: var(--pink-soft);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 28px;
+    text-transform: uppercase;
+  }
+  .hero-badge::before { content: '●'; font-size: 8px; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    font-weight: 900;
+  }
+  .hero-headline .accent { color: var(--pink-soft); }
+  .hero-headline .green-accent { color: #7AE89B; }
+  .hero-subhead {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 40px;
+    line-height: 1.7;
+    max-width: 520px;
+    font-weight: 300;
+  }
+  .hero-cta-group {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .hero-stat-item {}
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-stat-num span { color: var(--pink-soft); }
+  .hero-stat-label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-circle-diagram {
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .hero-circle-diagram::before {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255,255,255,0.12);
+  }
+  .circle-center {
+    text-align: center;
+    z-index: 2;
+  }
+  .circle-center-label {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--white);
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+  .circle-center-sub {
+    font-size: 0.78rem;
+    color: var(--green-light);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 4px;
+  }
+  .orbit-item {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .orbit-dot {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+  }
+  .orbit-dot.green { background: rgba(40,164,87,0.3); border: 1px solid rgba(40,164,87,0.5); }
+  .orbit-dot.pink { background: rgba(232,51,109,0.2); border: 1px solid rgba(232,51,109,0.4); }
+  .orbit-label {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  /* ============================================
+     SECTION 3 — TRIPLE WIN
+  ============================================ */
+  .triple-win {
+    background: var(--white);
+    padding: 80px 40px;
+  }
+  .win-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 56px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--green-light);
+  }
+  .win-card {
+    padding: 48px 36px;
+    position: relative;
+    background: var(--white);
+    transition: background 0.3s;
+  }
+  .win-card:hover { background: var(--green-mist); }
+  .win-card + .win-card { border-left: 1px solid var(--green-light); }
+  .win-icon {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .win-num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .win-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--green-deep);
+    margin-bottom: 14px;
+  }
+  .win-body {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+  .win-highlight {
+    margin-top: 20px;
+    display: inline-block;
+    background: var(--pink-blush);
+    color: var(--pink-vivid);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+  }
+
+  /* ============================================
+     SECTION 4 — MACRONUTRIENTS
+  ============================================ */
+  .macro-section {
+    background: var(--green-deep);
+    padding: 90px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .macro-section::before {
+    content: '';
+    position: absolute;
+    bottom: -100px; right: -100px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,51,109,0.08) 0%, transparent 70%);
+  }
+  .macro-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .macro-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 64px;
+  }
+  .macro-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    color: var(--white);
+    line-height: 1.2;
+  }
+  .macro-header h2 em { color: var(--pink-soft); font-style: normal; }
+  .macro-header p {
+    color: rgba(255,255,255,0.65);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+  .macro-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+  }
+  .macro-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-md);
+    padding: 28px 18px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s ease;
+  }
+  .macro-card:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-6px);
+  }
+  .macro-card.hero-card {
+    background: var(--pink-vivid);
+    border-color: var(--pink-vivid);
+    grid-column: span 2;
+  }
+  .macro-card.hero-card .macro-pct { color: var(--white); font-size: 3.5rem; }
+  .macro-card.hero-card .macro-name { color: rgba(255,255,255,0.85); }
+  .macro-bar {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: var(--pink-vivid);
+    transition: width 1s ease;
+  }
+  .macro-pct {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .macro-pct sup {
+    font-size: 1rem;
+    vertical-align: super;
+    font-family: var(--font-body);
+    font-weight: 400;
+  }
+  .macro-name {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .macro-tag {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.7rem;
+    color: var(--pink-soft);
+    font-family: var(--font-mono);
+    letter-spacing: 1px;
+  }
+  .macro-tag.white { color: rgba(255,255,255,0.8); }
+  .macro-cert-badge {
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-md);
+    padding: 20px 36px;
+    background: rgba(255,255,255,0.04);
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cert-item {
+    text-align: center;
+    padding: 0 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .cert-item:last-child { border-right: none; }
+  .cert-value {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--green-bright);
+    font-weight: 700;
+  }
+  .cert-label {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.45);
+    margin-top: 3px;
+  }
+
+  /* ============================================
+     SECTION 5 — SCIENCE
+  ============================================ */
+  .science-section {
+    background: var(--off-white);
+    padding: 90px 40px;
+  }
+  .science-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 56px;
+  }
+  .science-cards { display: flex; flex-direction: column; gap: 20px; }
+  .sci-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 30px 28px;
+    border: 1px solid var(--green-light);
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    align-items: start;
+    transition: all 0.25s;
+    position: relative;
+  }
+  .sci-card:hover {
+    border-color: var(--green-bright);
+    box-shadow: 0 4px 24px rgba(10,61,31,0.08);
+    transform: translateX(4px);
+  }
+  .sci-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 3px; height: 60%;
+    background: var(--pink-vivid);
+    border-radius: 0 3px 3px 0;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .sci-card:hover::before { opacity: 1; }
+  .sci-icon-wrap {
+    width: 56px; height: 56px;
+    border-radius: var(--radius-sm);
+    background: var(--green-mist);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+  .sci-content h4 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--green-deep);
+    margin-bottom: 8px;
+  }
+  .sci-content p {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+  .sci-benefit {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .benefit-chip {
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    background: var(--green-light);
+    color: var(--green-deep);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.5px;
+  }
+  .benefit-chip.pink-chip {
+    background: var(--pink-blush);
+    color: var(--pink-vivid);
+  }
+
+  .science-proof {
+    position: sticky;
+    top: 100px;
+  }
+  .proof-box {
+    background: var(--green-deep);
+    border-radius: var(--radius-lg);
+    padding: 40px 36px;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  .proof-box h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-bottom: 28px;
+    color: var(--white);
+  }
+  .proof-stat {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .proof-stat:last-child { border-bottom: none; }
+  .proof-num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--pink-soft);
+    min-width: 80px;
+    line-height: 1;
+  }
+  .proof-desc {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+  }
+  .water-quality-box {
+    background: var(--green-mist);
+    border: 1px solid var(--green-light);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .water-quality-box .icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 4px; }
+  .water-quality-box h4 {
+    font-family: var(--font-display);
+    color: var(--green-deep);
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  .water-quality-box p {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  /* ============================================
+     SECTION 6 — ROI
+  ============================================ */
+  .roi-section {
+    background: var(--white);
+    padding: 90px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .roi-section::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, var(--green-mist));
+  }
+  .roi-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .roi-content {}
+  .pain-point-box {
+    background: var(--text-dark);
+    color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 28px 32px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .pain-point-box::before {
+    content: '⚠';
+    font-size: 1.2rem;
+    position: absolute;
+    top: 24px; right: 24px;
+    opacity: 0.4;
+  }
+  .pain-pct {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--pink-soft);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .pain-desc {
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+  }
+  .roi-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
+  .roi-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--green-mist);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--green-light);
+  }
+  .roi-check {
+    width: 24px; height: 24px;
+    background: var(--green-bright);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .roi-item-text {
+    font-size: 0.92rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+  .roi-item-text strong { color: var(--green-deep); }
+  .roi-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .roi-big-number {
+    background: var(--green-deep);
+    color: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 40px 32px;
+    text-align: center;
+  }
+  .roi-big-number .big { font-family: var(--font-display); font-size: 4.5rem; font-weight: 900; color: #7AE89B; line-height: 1; }
+  .roi-big-number .label { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 8px; line-height: 1.5; }
+  .roi-vs {
+    display: flex;
+    gap: 2px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--green-light);
+  }
+  .vs-col {
+    flex: 1;
+    padding: 20px 18px;
+    background: var(--white);
+    text-align: center;
+  }
+  .vs-col.highlight { background: var(--green-mist); }
+  .vs-col + .vs-col { border-left: 1px solid var(--green-light); }
+  .vs-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-light); margin-bottom: 8px; font-family: var(--font-mono); }
+  .vs-value { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--green-deep); }
+  .vs-value.pink { color: var(--pink-vivid); }
+  .vs-note { font-size: 0.75rem; color: var(--text-mid); margin-top: 4px; }
+
+  /* ============================================
+     SECTION 7 — DUAL PATH
+  ============================================ */
+  .dual-path {
+    background: var(--green-deep);
+    padding: 90px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .dual-path::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(26,107,58,0.8) 0%, transparent 100%);
+  }
+  .dual-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .dual-inner h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+  .dual-inner p { color: rgba(255,255,255,0.6); margin-bottom: 56px; }
+  .dual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .dual-card {
+    border-radius: var(--radius-lg);
+    padding: 52px 44px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .dual-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+  }
+  .dual-card.farmer-card { background: rgba(40,164,87,0.12); }
+  .dual-card.investor-card { background: rgba(232,51,109,0.08); border-color: rgba(232,51,109,0.25); }
+  .dual-card-icon { font-size: 2.6rem; margin-bottom: 20px; }
+  .dual-card-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 18px;
+    display: inline-block;
+  }
+  .farmer-tag { background: rgba(40,164,87,0.3); color: #7AE89B; }
+  .investor-tag { background: rgba(232,51,109,0.3); color: var(--pink-soft); }
+  .dual-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--white);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  .dual-card p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .dual-feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .dual-feature-list li {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.7);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .dual-feature-list li::before { content: '→'; color: var(--pink-soft); flex-shrink: 0; margin-top: 1px; }
+
+  /* ============================================
+     SECTION 8 — CTA IDEAS REFERENCE PANEL
+  ============================================ */
+  .cta-panel {
+    background: var(--off-white);
+    padding: 80px 40px;
+  }
+  .cta-panel-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+  .cta-table-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--green-deep);
+    margin-bottom: 8px;
+  }
+  .cta-table-sub {
+    color: var(--text-mid);
+    margin-bottom: 40px;
+  }
+  .cta-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .cta-group-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    border: 1px solid var(--green-light);
+  }
+  .cta-group-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+  .label-farmer { background: var(--green-light); color: var(--green-deep); }
+  .label-investor { background: var(--pink-blush); color: var(--pink-vivid); }
+  .label-universal { background: var(--off-white); border: 1px solid var(--green-light); color: var(--text-mid); }
+  .cta-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--green-mist);
+  }
+  .cta-item:last-child { border-bottom: none; }
+  .cta-phrase {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--green-deep);
+    margin-bottom: 4px;
+  }
+  .cta-phrase.pink { color: var(--pink-vivid); }
+  .cta-why {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  /* ============================================
+     SECTION 9 — FOOTER
+  ============================================ */
+  .site-footer {
+    background: var(--text-dark);
+    color: rgba(255,255,255,0.5);
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .footer-logo span { color: var(--pink-vivid); }
+  .footer-tagline {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 28px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    list-style: none;
+    margin-bottom: 32px;
+  }
+  .footer-links a {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--white); }
+  .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+
+  /* ============================================
+     RESPONSIVE
+  ============================================ */
+  @media (max-width: 900px) {
+    .hero-section { grid-template-columns: 1fr; min-height: auto; }
+    .hero-visual { display: none; }
+    .macro-grid { grid-template-columns: repeat(3, 1fr); }
+    .macro-card.hero-card { grid-column: span 1; }
+    .win-grid { grid-template-columns: 1fr; }
+    .win-card + .win-card { border-left: none; border-top: 1px solid var(--green-light); }
+    .science-layout, .roi-layout, .dual-grid, .macro-header { grid-template-columns: 1fr; gap: 40px; }
+    .hero-circle-diagram { width: 280px; height: 280px; }
+    .cta-grid-3 { grid-template-columns: 1fr; }
+    .strategy-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     META BANNER
+============================================================ -->
+<div class="blueprint-banner">
+  NILOPIA — Website Homepage Blueprint &nbsp;|&nbsp;
+  <span>Green + White + Pink</span> Color System &nbsp;|&nbsp;
+  Farmers & Investors Dual-Audience
+</div>
+
+<!-- ============================================================
+     SECTION A: POSITIONING STRATEGY
+============================================================ -->
+<section class="strategy-section">
+  <div class="strategy-inner">
+    <div class="section-label">Section A — Positioning Strategy</div>
+    <h1>The "Validated Tool, Not Experiment" <em>Framework</em></h1>
+    <p class="tagline-sub">How to balance scientific credibility with commercial pragmatism across both audiences.</p>
+
+    <div class="strategy-grid">
+      <!-- Card 1 -->
+      <div class="strategy-card">
+        <span class="audience-badge badge-farmer">For Farmers</span>
+        <h3>Lead with Outcomes, Back with Science</h3>
+        <p>
+          Farmers are ROI-driven, not curiosity-driven. Lead every message with measurable farm outcomes — faster FCR, lower mortality, cleaner water — and use the science (Spirulina, Moringa, fermentation) as the <em>proof mechanism</em>, not the headline. The bio-tech angle should feel like a guarantee, not a sales pitch.
+        </p>
+        <p style="margin-top:12px;">
+          <strong style="color:#7AE89B;">Copy Principle:</strong> "Our feed reduces your mortality rate. Here's the biology that makes that possible." Not the reverse.
+        </p>
+      </div>
+      <!-- Card 2 -->
+      <div class="strategy-card">
+        <span class="audience-badge badge-investor">For Investors</span>
+        <h3>The Circular Framework as IP Moat</h3>
+        <p>
+          Investors see scalable systems, not bags of fish feed. Position the unified Fermentation + Spirulina + Moringa circular framework as defensible IP in a multi-billion-dollar aquaculture inputs market. Emphasize ESG alignment, regulatory tailwinds, and the platform's ability to be deployed across multiple species and geographies.
+        </p>
+        <p style="margin-top:12px;">
+          <strong style="color:var(--pink-soft);">Copy Principle:</strong> NILOPIA is a platform technology that produces feed. The addressable market is every aquaculture operation on earth.
+        </p>
+      </div>
+      <!-- Card 3 -->
+      <div class="strategy-card">
+        <span class="audience-badge badge-both">Both Audiences</span>
+        <h3>The "Triple Win" Core Narrative</h3>
+        <p>
+          The single most powerful positioning asset is the triple win — <strong style="color:#7AE89B;">Sustainable + High-Performance + Cost-Effective</strong> — because it collapses the usual trade-off narrative. Conventional feeds force farmers to choose: quality OR price. NILOPIA eliminates that choice. This benefits farmers on margins AND investors on TAM expansion and defensibility.
+        </p>
+        <div class="design-note">
+          <strong>Design Cue:</strong> Use the triple win across all hero and fold content. Never present one benefit without the other two nearby — they derive meaning from each other.
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="strategy-card">
+        <span class="audience-badge badge-farmer">Risk Mitigation Language</span>
+        <h3>Make the Science Feel Safe</h3>
+        <p>
+          Farmers resist "experimental" feeds because a failed crop is catastrophic. Counter this with: trial data, specific species names (Tilapia), quantified results (mortality rates, FCR benchmarks), and peer-backed ingredient names (Bacillus, Lactobacillus, Spirulina, Moringa) that sound validated, not speculative. Offer sample-first, commitment-never as the entry point.
+        </p>
+      </div>
+      <!-- Card 5 -->
+      <div class="strategy-card">
+        <span class="audience-badge badge-both">Tone Architecture</span>
+        <h3>Authoritative but Farmer-Fluent</h3>
+        <p>
+          The language must be simultaneously rigorous enough for investors reviewing technical decks and plain-spoken enough for a farmer calculating their quarterly margin. Achieve this by: using technical terms once (with a plain-English parenthetical), relying on data and percentages over adjectives, and anchoring abstract claims in concrete "per-pond" or "per-cycle" framing.
+        </p>
+        <div class="design-note">
+          <strong>Design Cue:</strong> Pink accents flag every number that matters — percentages, cost savings, protein figures. This creates an instant scannable "proof layer" for both audiences.
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="strategy-card">
+        <span class="audience-badge badge-investor">Market Context</span>
+        <h3>Frame the Market Before the Product</h3>
+        <p>
+          Investors need a "why now, why this" context before evaluating the product. Feed costs are 50–70% of aquaculture operating expenses. Global aquaculture demand is growing faster than supply. Conventional feed relies on wild-caught fishmeal facing supply collapse. NILOPIA's locally sourced, waste-derived circular inputs are structurally superior — not just "greener."
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============================================================
+     NAVIGATION PREVIEW
+============================================================ -->
+<nav class="nav-preview">
+  <div class="nav-inner">
+    <div class="nav-logo">NILOPI<span>A</span></div>
+    <ul class="nav-links">
+      <li><a href="#">Our Feed</a></li>
+      <li><a href="#">The Science</a></li>
+      <li><a href="#">For Farmers</a></li>
+      <li><a href="#">For Investors</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="#" class="btn btn-outline-green">Investor Deck</a>
+      <a href="#" class="btn btn-pink btn-arrow">Request Sample</a>
+    </div>
+  </div>
+  <div class="design-note" style="max-width:1160px;margin:0 auto 12px;">
+    <strong>Nav Notes:</strong> White background with deep green logo. Right-side dual CTA anchors both audiences in every scroll position. Pink "Request Sample" is always visible to drive farmer conversion. Green outline "Investor Deck" is positioned as secondary but persistent.
+  </div>
+</nav>
+
+<!-- ============================================================
+     SECTION 1 — HERO
+============================================================ -->
+<section class="hero-section">
+  <div class="hero-bg-circle2"></div>
+  <div class="hero-content">
+    <div class="section-label">Section 1 — Hero</div>
+
+    <div class="hero-badge">Now Available — Locally Manufactured</div>
+
+    <h1 class="hero-headline">
+      Feed That <span class="accent">Performs.</span><br>
+      Science That <span class="green-accent">Sustains.</span><br>
+      Margins That <span class="accent">Win.</span>
+    </h1>
+
+    <p class="hero-subhead">
+      NILOPIA is a premium, circular bio-aquaculture feed engineered for maximum fish performance — built from fermented agricultural residues, Spirulina, and Moringa. 40% crude protein. Locally made. Priced for profitability.
+    </p>
+
+    <div class="hero-cta-group">
+      <a href="#" class="btn btn-pink btn-arrow">Request a Free Sample</a>
+      <a href="#" class="btn btn-outline-white">Download Investor Deck</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">40<span>%</span></div>
+        <div class="hero-stat-label">Crude Protein</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">3<span>×</span></div>
+        <div class="hero-stat-label">Active Ingredients</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">↓<span>%</span></div>
+        <div class="hero-stat-label">Mortality Rate</div>
+      </div>
+    </div>
+    <div class="design-note" style="max-width:520px;margin-top:18px;">
+      <strong>Hero Copy Notes:</strong> Headline uses a 3-beat parallel structure — Performs / Sustains / Wins — each word landing on its own line for visual impact. Pink CTA is the dominant action. Subheadline packs the key proof points (40% protein, locally made, circular bio-aquaculture) in plain prose so both farmers and investors absorb them in one read. The 3 stat pills below the CTA provide instant scannable credibility.
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-circle-diagram">
+      <div class="circle-center">
+        <div class="circle-center-label">NILOPIA</div>
+        <div class="circle-center-sub">Circular Feed</div>
+      </div>
+      <!-- Orbit items (visual diagram of the 3 components) -->
+      <div class="orbit-item" style="top:-30px;left:50%;transform:translateX(-50%)">
+        <div class="orbit-dot green">🌊</div>
+        <span class="orbit-label">Spirulina<br>Enrichment</span>
+      </div>
+      <div class="orbit-item" style="bottom:20px;left:-30px;">
+        <div class="orbit-dot green">🌿</div>
+        <span class="orbit-label">Moringa<br>Integration</span>
+      </div>
+      <div class="orbit-item" style="bottom:20px;right:-30px;">
+        <div class="orbit-dot pink">🧫</div>
+        <span class="orbit-label">Microbial<br>Fermentation</span>
+      </div>
+    </div>
+    <div class="design-note" style="color:rgba(255,255,255,0.6);background:rgba(255,107,153,0.06);border-left-color:var(--pink-soft);margin-top:24px;max-width:380px;">
+      <strong style="color:var(--pink-soft);">Visual Note:</strong> Replace diagram with a premium product shot on a dark green background — a bag of NILOPIA feed with a subtle orbit/circular graphic overlay. The orbit diagram shown here is a placeholder for the 3-ingredient story.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2 — TRIPLE WIN
+============================================================ -->
+<section class="triple-win">
+  <div class="inner">
+    <span class="eyebrow">Why NILOPIA Works</span>
+    <h2 class="section-title">The Feed Industry's <em>Rarest Achievement</em></h2>
+    <p class="section-body">Most feeds make you choose: premium quality <em>or</em> affordable price. NILOPIA was engineered to collapse that trade-off permanently.</p>
+
+    <div class="win-grid">
+      <div class="win-card">
+        <span class="win-icon">🌱</span>
+        <div class="win-num">01 / 03</div>
+        <div class="win-title">Sustainable</div>
+        <p class="win-body">Built on a circular bio-aquaculture framework. Raw inputs are agricultural residues and microalgae — zero reliance on wild-caught fishmeal facing global supply collapse. Fully aligned with ESG mandates and green aquaculture certification standards.</p>
+        <span class="win-highlight">Zero Fishmeal Dependency</span>
+      </div>
+      <div class="win-card">
+        <span class="win-icon">📈</span>
+        <div class="win-num">02 / 03</div>
+        <div class="win-title">High-Performing</div>
+        <p class="win-body">40% crude protein. Enhanced by Spirulina for superior growth rates, feed conversion efficiency, and immune response. Clinically validated on Tilapia: measurably lower bacterial mortality, faster biomass gain, and improved feed conversion ratios vs. conventional inputs.</p>
+        <span class="win-highlight">40% Crude Protein</span>
+      </div>
+      <div class="win-card">
+        <span class="win-icon">💰</span>
+        <div class="win-num">03 / 03</div>
+        <div class="win-title">Cost-Effective</div>
+        <p class="win-body">Locally manufactured. Inputs sourced from agricultural waste streams at near-zero raw material cost. Priced significantly below imported premium feeds while delivering equivalent or superior performance — directly attacking the 50–70% feed-cost overhead that defines profitability in aquaculture.</p>
+        <span class="win-highlight">Locally Made · Lower Cost</span>
+      </div>
+    </div>
+    <div class="design-note">
+      <strong>Layout Note:</strong> Three-panel card grid on green-mist background. Each card shows a large number (01–03) in mono font for editorial gravitas. Pink "highlight" badge on each card draws the eye to the key proof point. Hover state transitions to a deeper green-mist, reinforcing interactivity.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — MACRONUTRIENTS
+============================================================ -->
+<section class="macro-section">
+  <div class="macro-inner">
+    <div class="section-label">Section 3 — Guaranteed Nutritional Analysis</div>
+    <div class="macro-header">
+      <div>
+        <span class="eyebrow" style="color:var(--pink-soft);">Guaranteed Analysis</span>
+        <h2>Every Gram. <em>Engineered</em>.</h2>
+        <p>The NILOPIA guaranteed analysis represents the product of years of circular bio-aquaculture research — not an approximation, but a precise nutritional architecture designed around maximum fish performance.</p>
+      </div>
+      <div>
+        <p style="color:rgba(255,255,255,0.65);font-size:0.95rem;line-height:1.8;">
+          Premium aquaculture feed requires a minimum of <strong style="color:var(--pink-soft);">35% crude protein</strong> to support optimal growth. NILOPIA exceeds this benchmark at 40%, achieved without expensive fishmeal — through precision fermentation and Spirulina enrichment. Every macronutrient figure below is the certified, guaranteed floor, not an estimate.
+        </p>
+      </div>
+    </div>
+
+    <div class="macro-grid">
+      <!-- Crude Protein — Hero Card -->
+      <div class="macro-card hero-card">
+        <div class="macro-pct">40<sup>%</sup></div>
+        <div class="macro-name">Crude Protein</div>
+        <div class="macro-tag white">Premium Threshold: 35% · NILOPIA: +5pp</div>
+        <div class="macro-bar" style="width:100%;"></div>
+      </div>
+
+      <!-- Carbohydrates -->
+      <div class="macro-card">
+        <div class="macro-pct">21<sup>%</sup></div>
+        <div class="macro-name">Carbohydrates</div>
+        <div class="macro-tag">Digestible Energy</div>
+        <div class="macro-bar" style="width:52.5%;"></div>
+      </div>
+
+      <!-- Crude Fats -->
+      <div class="macro-card">
+        <div class="macro-pct">20<sup>%</sup></div>
+        <div class="macro-name">Crude Fats</div>
+        <div class="macro-tag">Lipid Energy Reserve</div>
+        <div class="macro-bar" style="width:50%;"></div>
+      </div>
+
+      <!-- Crude Fiber -->
+      <div class="macro-card">
+        <div class="macro-pct">16<sup>%</sup></div>
+        <div class="macro-name">Crude Fiber</div>
+        <div class="macro-tag">Gut Motility Support</div>
+        <div class="macro-bar" style="width:40%;"></div>
+      </div>
+
+      <!-- Moisture -->
+      <div class="macro-card">
+        <div class="macro-pct">2<sup>%</sup></div>
+        <div class="macro-name">Moisture</div>
+        <div class="macro-tag">Shelf Stability</div>
+        <div class="macro-bar" style="width:5%;"></div>
+      </div>
+
+      <!-- Ash -->
+      <div class="macro-card">
+        <div class="macro-pct">1<sup>%</sup></div>
+        <div class="macro-name">Ash</div>
+        <div class="macro-tag">Mineral Fraction</div>
+        <div class="macro-bar" style="width:2.5%;"></div>
+      </div>
+    </div>
+
+    <div class="macro-cert-badge">
+      <div class="cert-item">
+        <div class="cert-value">40%</div>
+        <div class="cert-label">Protein ≥ Guarantee</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-value">2%</div>
+        <div class="cert-label">Ultra-Low Moisture</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-value">97%</div>
+        <div class="cert-label">Dry Matter Content</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-value">3-in-1</div>
+        <div class="cert-label">Circular Ingredient System</div>
+      </div>
+    </div>
+
+    <div class="design-note" style="color:rgba(255,255,255,0.55);background:rgba(255,107,153,0.07);border-left-color:var(--pink-soft);max-width:900px;margin-top:24px;">
+      <strong style="color:var(--pink-soft);">Layout Notes:</strong> Dark green section background with white/translucent cards makes the pink 40% Protein hero card pop dramatically. The bottom certification strip acts as a summary badge — visually scannable proof for both farmers and investors. The progress bars animate on scroll to reinforce that these are precise, earned numbers.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — SCIENCE
+============================================================ -->
+<section class="science-section">
+  <div class="inner">
+    <div class="section-label">Section 4 — Science Behind the Feed</div>
+    <span class="eyebrow">The Biology of Performance</span>
+    <h2 class="section-title">Three Ingredients.<br><em>One Unified System.</em></h2>
+    <p class="section-body">NILOPIA's performance is not accidental. Each component is scientifically validated, each inclusion level optimized, and each interaction designed to amplify the others.</p>
+
+    <div class="science-layout">
+      <div class="science-cards">
+
+        <!-- Component 1 -->
+        <div class="sci-card">
+          <div class="sci-icon-wrap">🧫</div>
+          <div class="sci-content">
+            <h4>Microbial Fermentation of Agricultural Residues</h4>
+            <p>
+              Agricultural waste — otherwise a disposal liability — is transformed by <em>Bacillus</em> and <em>Lactobacillus</em> fermentation into a protein-rich, highly digestible biomass. Fermentation degrades anti-nutritional factors (ANFs) that block nutrient absorption in conventional feeds, while accumulating microbial protein and bioactive compounds that enhance gut health and palatability.
+            </p>
+            <div class="sci-benefit">
+              <span class="benefit-chip">↑ Digestibility</span>
+              <span class="benefit-chip">↓ Anti-Nutritional Factors</span>
+              <span class="benefit-chip">Circular Inputs</span>
+              <span class="benefit-chip pink-chip">Near-Zero Input Cost</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Component 2 -->
+        <div class="sci-card">
+          <div class="sci-icon-wrap">🌊</div>
+          <div class="sci-content">
+            <h4>Spirulina (Microalgae) Enrichment</h4>
+            <p>
+              Spirulina is one of the most protein-dense organisms on earth — and a functional immune modulator. At NILOPIA's calibrated inclusion levels, it has demonstrated measurable improvements in growth performance, feed conversion efficiency (FCR), and immune response in Tilapia. Clinically: higher resistance to bacterial infections and significantly lower mortality rates versus control groups on conventional feed.
+            </p>
+            <div class="sci-benefit">
+              <span class="benefit-chip">↑ Growth Rate</span>
+              <span class="benefit-chip">↓ FCR</span>
+              <span class="benefit-chip">↓ Bacterial Mortality</span>
+              <span class="benefit-chip pink-chip">Validated on Tilapia</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Component 3 -->
+        <div class="sci-card">
+          <div class="sci-icon-wrap">🌿</div>
+          <div class="sci-content">
+            <h4>Moringa oleifera Integration</h4>
+            <p>
+              Moringa leaf powder, at precisely optimized inclusion levels, delivers a full spectrum of essential amino acids, vitamins A and C, calcium, potassium, and antioxidants. This supports growth and immunity without compromising palatability — a common failure point of functional additives at excess inclusion. The Moringa fraction also contains natural water-soluble protein coagulants that bind suspended particles in pond water, functioning as an in-feed eco-clarifier.
+            </p>
+            <div class="sci-benefit">
+              <span class="benefit-chip">↑ Immunity</span>
+              <span class="benefit-chip">Full Amino Acid Profile</span>
+              <span class="benefit-chip">Antioxidant Load</span>
+              <span class="benefit-chip pink-chip">In-Feed Water Clarifier</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Proof Panel (sticky sidebar) -->
+      <div class="science-proof">
+        <div class="proof-box">
+          <h3>Validated Outcomes vs. Conventional Feed</h3>
+          <div class="proof-stat">
+            <div class="proof-num">↓ FCR</div>
+            <div class="proof-desc">Improved feed conversion ratio — less feed required per kg of fish biomass gained. Direct cost reduction per production cycle.</div>
+          </div>
+          <div class="proof-stat">
+            <div class="proof-num">↓ Mort.</div>
+            <div class="proof-desc">Measurably lower bacterial-infection mortality in Tilapia trials. Fewer losses = better yield on every stocking investment.</div>
+          </div>
+          <div class="proof-stat">
+            <div class="proof-num">↑ ABW</div>
+            <div class="proof-desc">Higher average body weight at harvest compared to control groups on standard commercial feed.</div>
+          </div>
+          <div class="proof-stat">
+            <div class="proof-num">40%</div>
+            <div class="proof-desc">Guaranteed crude protein floor — exceeding the 35% minimum required for premium aquaculture classification.</div>
+          </div>
+        </div>
+
+        <div class="water-quality-box">
+          <div class="icon">💧</div>
+          <div>
+            <h4>The In-Feed Water Benefit</h4>
+            <p>
+              Moringa's natural coagulant compounds bind suspended particles and microorganisms in pond water — passively improving water quality with every feeding cycle. Cleaner water = healthier fish = lower antibiotic spend. NILOPIA is one of the only commercial feeds that actively improves its own production environment.
+            </p>
+          </div>
+        </div>
+
+        <div class="design-note">
+          <strong>Layout Note:</strong> Proof panel is sticky on desktop so it stays visible as users scroll through each ingredient card. The water quality callout in green-mist color visually separates it as a "bonus insight" — something that surprises both farmers and investors.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5 — ROI FOR FARMERS
+============================================================ -->
+<section class="roi-section">
+  <div class="inner roi-layout">
+    <div class="roi-content">
+      <div class="section-label">Section 5 — ROI for Farmers</div>
+      <span class="eyebrow">The Feed Cost Problem. Solved.</span>
+      <h2 class="section-title">Your Biggest Overhead.<br><em>Our Biggest Target.</em></h2>
+
+      <div class="pain-point-box">
+        <div class="pain-pct">50–70%</div>
+        <p class="pain-desc">
+          Feed costs consume 50–70% of total aquaculture production expenses. This is the single number that determines whether a fish farmer turns a profit or a loss. Every premium feed that doesn't deliver on price is a false economy. NILOPIA was designed specifically to attack this number — without cutting corners on nutrition.
+        </p>
+      </div>
+
+      <ul class="roi-list">
+        <li class="roi-item">
+          <div class="roi-check">✓</div>
+          <div class="roi-item-text">
+            <strong>Locally manufactured</strong> — no import duties, no dollar-denominated supply chain exposure. Your feed cost is insulated from currency volatility.
+          </div>
+        </li>
+        <li class="roi-item">
+          <div class="roi-check">✓</div>
+          <div class="roi-item-text">
+            <strong>Inputs from agricultural waste</strong> — raw material cost is near-zero relative to conventional fishmeal-based ingredients, and those savings are passed to you.
+          </div>
+        </li>
+        <li class="roi-item">
+          <div class="roi-check">✓</div>
+          <div class="roi-item-text">
+            <strong>Better FCR = fewer bags per harvest cycle.</strong> A feed that converts more efficiently means you spend less per kg of fish produced — even at equal or higher purchase price per bag.
+          </div>
+        </li>
+        <li class="roi-item">
+          <div class="roi-check">✓</div>
+          <div class="roi-item-text">
+            <strong>Lower mortality = better yield on every stocked juvenile.</strong> Spirulina-driven immune performance protects your investment from bacterial losses that can wipe out an entire pond.
+          </div>
+        </li>
+        <li class="roi-item">
+          <div class="roi-check">✓</div>
+          <div class="roi-item-text">
+            <strong>In-feed water clarification</strong> means lower pond management cost, reduced water exchange frequency, and less antibiotic spend over a production cycle.
+          </div>
+        </li>
+      </ul>
+
+      <a href="#" class="btn btn-pink btn-arrow">Request a Free Farm Trial</a>
+    </div>
+
+    <div class="roi-visual">
+      <div class="roi-big-number">
+        <div class="big">↓ Cost</div>
+        <div class="label">Per kg of fish produced<br>vs. imported premium feeds</div>
+      </div>
+
+      <div class="roi-vs">
+        <div class="vs-col">
+          <div class="vs-label">Conventional Premium Feed</div>
+          <div class="vs-value pink">High</div>
+          <div class="vs-note">Import-dependent pricing<br>Volatile raw material costs</div>
+        </div>
+        <div class="vs-col highlight">
+          <div class="vs-label">NILOPIA</div>
+          <div class="vs-value">Competitive</div>
+          <div class="vs-note">Local manufacture<br>Circular waste inputs</div>
+        </div>
+      </div>
+
+      <div class="water-quality-box">
+        <div class="icon">🐟</div>
+        <div>
+          <h4>A Feed That Pays for Itself Twice</h4>
+          <p>NILOPIA reduces your direct feed cost AND reduces your secondary costs: less antibiotic use, less water treatment, fewer juvenile replacement losses. Calculate the full-cycle savings, not just the per-bag price.</p>
+        </div>
+      </div>
+
+      <div class="design-note">
+        <strong>Layout Note:</strong> The 50–70% pain point box in dark/charcoal color creates a stark contrast moment — the "problem frame" before the solutions list. The green ROI items that follow provide resolution. The "Pays Twice" callout closes the argument emotionally, not just logically.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — DUAL PATH (Farmer + Investor)
+============================================================ -->
+<section class="dual-path">
+  <div class="dual-inner">
+    <div class="section-label">Section 6 — Dual-Path Navigation</div>
+    <h2>Who Are You Here As?</h2>
+    <p>NILOPIA speaks to two audiences. Choose your path to the information that matters most to you.</p>
+
+    <div class="dual-grid">
+      <!-- Farmer Card -->
+      <div class="dual-card farmer-card">
+        <div class="dual-card-icon">🌾</div>
+        <span class="dual-card-tag farmer-tag">For Fish Farmers & Buyers</span>
+        <h3>Get Healthier Fish. Lower Your Feed Cost.</h3>
+        <p>
+          Whether you're managing a 1-pond operation or a commercial fish farm, NILOPIA gives you a locally available, scientifically validated premium feed — at a price built for real profitability. No experiments. Just results.
+        </p>
+        <ul class="dual-feature-list">
+          <li>40% crude protein — certified, guaranteed</li>
+          <li>Immune-boosting Spirulina and Moringa inclusion</li>
+          <li>Measurably lower mortality in Tilapia trials</li>
+          <li>In-feed water clarification — cleaner pond, healthier fish</li>
+          <li>Locally available — no supply chain disruptions</li>
+        </ul>
+        <a href="#" class="btn btn-pink btn-arrow">Request a Free Sample</a>
+      </div>
+
+      <!-- Investor Card -->
+      <div class="dual-card investor-card">
+        <div class="dual-card-icon">📊</div>
+        <span class="dual-card-tag investor-tag">For Impact Investors & Partners</span>
+        <h3>Back the Infrastructure of Sustainable Aquaculture.</h3>
+        <p>
+          NILOPIA is more than a feed brand — it is the commercial expression of a defensible, circular bio-aquaculture platform. We are commercializing IP at the intersection of industrial biotech, sustainable agriculture, and a rapidly growing global protein supply gap.
+        </p>
+        <ul class="dual-feature-list">
+          <li>Proprietary circular fermentation + Spirulina + Moringa framework</li>
+          <li>Scalable: species-agnostic input system, geography-portable</li>
+          <li>Full ESG/green aquaculture certification alignment</li>
+          <li>Attacking a market where feed = 50–70% of all operating cost</li>
+          <li>Disrupting import-dependent value chain with local circular inputs</li>
+        </ul>
+        <a href="#" class="btn btn-outline-white btn-arrow">Download Investor Deck</a>
+      </div>
+    </div>
+    <div class="design-note" style="color:rgba(255,255,255,0.5);background:rgba(255,107,153,0.07);border-left-color:var(--pink-soft);max-width:900px;margin:32px auto 0;">
+      <strong style="color:var(--pink-soft);">Layout Note:</strong> This section uses a full dark-green background to create a visual "decision moment." The two cards have distinct visual personalities — the farmer card leans green-warm, the investor card leans pink-cool — while both sit in the same architectural frame. Both CTAs are pink-family but visually differentiated (solid vs. outline).
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7 — CTA IDEAS REFERENCE
+============================================================ -->
+<section class="cta-panel">
+  <div class="cta-panel-inner">
+    <div class="section-label">Section 7 — CTA Copy Vault</div>
+    <div class="cta-table-title">High-Converting CTA Ideas</div>
+    <p class="cta-table-sub">Use these across buttons, form headers, exit overlays, email footers, and ad creative. Organized by audience and context.</p>
+
+    <div class="cta-grid-3">
+      <!-- Farmer CTAs -->
+      <div class="cta-group-card">
+        <span class="cta-group-label label-farmer">For Farmers — Action CTAs</span>
+
+        <div class="cta-item">
+          <div class="cta-phrase">Request a Free Farm Trial →</div>
+          <div class="cta-why">Zero-commitment entry. Removes risk perception. The word "trial" signals NILOPIA's confidence in the product.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase">Cut Your Feed Cost. Keep Your Yield.</div>
+          <div class="cta-why">Two-sided promise in one line. Addresses the core farmer fear: that lower cost means lower performance.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase">See What 40% Protein Does to Your Harvest</div>
+          <div class="cta-why">Anchors on the key spec and converts it into a tangible farm outcome. Curiosity-driven.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase">Order Your First Bag Risk-Free →</div>
+          <div class="cta-why">Explicit risk removal. Works well on product pages and near pricing info.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase">Talk to a Feed Specialist</div>
+          <div class="cta-why">Human-touch CTA for farmers who want consultative selling, not self-serve. High conversion for complex multi-pond operations.</div>
+        </div>
+      </div>
+
+      <!-- Investor CTAs -->
+      <div class="cta-group-card">
+        <span class="cta-group-label label-investor">For Investors — Engagement CTAs</span>
+
+        <div class="cta-item">
+          <div class="cta-phrase pink">Download the Investor Deck →</div>
+          <div class="cta-why">Direct, respectful of an investor's time. The word "deck" signals a polished, formal document is waiting — not a brochure.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase pink">Request a Technical Brief on the Circular Framework</div>
+          <div class="cta-why">Targets the IP-curious investor who wants to understand the defensibility before scheduling a call.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase pink">Schedule a Founder Conversation</div>
+          <div class="cta-why">Warm, high-trust entry. Works for impact investors and family offices who invest in people.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase pink">Explore the Market Thesis →</div>
+          <div class="cta-why">Leads with market context before product — appropriate for investors who are category-curious but not yet product-aware.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase pink">Join Our Pilot Partners Program</div>
+          <div class="cta-why">Works for strategic investors and distributors who want operational exposure before equity commitment.</div>
+        </div>
+      </div>
+
+      <!-- Universal CTAs -->
+      <div class="cta-group-card">
+        <span class="cta-group-label label-universal">Universal — Hero & Nav CTAs</span>
+
+        <div class="cta-item">
+          <div class="cta-phrase">Discover the Triple Win →</div>
+          <div class="cta-why">Works for both audiences. Curiosity-led. Frames the brand's core narrative without revealing it — it's a scroll-driver.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase">See the Nutritional Guarantee</div>
+          <div class="cta-why">Confidence-first language. The word "guarantee" signals accountability. Clicks anchor on the macronutrient section.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase">Meet NILOPIA</div>
+          <div class="cta-why">Clean, brand-forward CTA. Works for awareness-stage visitors who need context before commitment.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase">Built Locally. Proven Scientifically. →</div>
+          <div class="cta-why">Brand tagline as CTA. Works in email subjects, social bios, and ad copy. Dual-audience in six words.</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-phrase">The Feed the Market Has Been Waiting For</div>
+          <div class="cta-why">Bold positioning statement for hero banners and LinkedIn. Primes both farmers and investors for a breakthrough narrative.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER PREVIEW
+============================================================ -->
+<footer class="site-footer">
+  <div class="footer-logo">NILOPI<span>A</span></div>
+  <div class="footer-tagline">Circular Bio-Aquaculture · Premium Fish Feed · Locally Engineered</div>
+  <ul class="footer-links">
+    <li><a href="#">Our Feed</a></li>
+    <li><a href="#">The Science</a></li>
+    <li><a href="#">For Farmers</a></li>
+    <li><a href="#">For Investors</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Privacy</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 NILOPIA. All rights reserved. · This page is a Website Blueprint / Design Reference Document.</p>
+</footer>
+
+</body>
+</html>
