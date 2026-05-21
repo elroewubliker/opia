@@ -1147,6 +1147,68 @@
     .cta-grid-3 { grid-template-columns: 1fr; }
     .strategy-grid { grid-template-columns: 1fr; }
   }
+  .feed-photos-section {
+  background: var(--white);
+  padding: 80px 40px;
+}
+.feed-photos-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+.feed-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 columns */
+  grid-auto-rows: 140px; /* fixed row height */
+  gap: 16px;
+  margin-top: 32px;
+}
+.feed-photo-card {
+  background: var(--off-white);
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 12px rgba(10,61,31,0.05);
+  overflow: hidden;
+  border: 1px solid var(--green-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+.feed-photo-card img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--green-light);
+  background: #eee;
+}
+.feed-photo-caption {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 6px;
+  font-size: 0.82rem;
+  color: var(--text-mid);
+  text-align: center;
+  width: 100%;
+}
+@media (max-width: 1100px) {
+  .feed-photo-grid {
+    grid-template-columns: repeat(3, 1fr); /* On smaller screens, switch to 3 cols */
+    grid-auto-rows: 150px;
+  }
+}
+@media (max-width: 700px) {
+  .feed-photo-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 160px;
+  }
+}
+@media (max-width: 480px) {
+  .feed-photo-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 170px;
+  }
+}
 </style>
 </head>
 <body>
@@ -1540,6 +1602,20 @@
 </section>
   
 <!-- SECTION: FEED PRODUCTION PHOTOS -->
+  <!-- SECTION: FEED PRODUCTION PHOTOS -->
+<section class="feed-photos-section">
+  <div class="feed-photos-inner">
+    <h2 class="section-title">How We Produce Our Feed: <em>In Photos</em></h2>
+    <p class="section-body">A behind-the-scenes look at our feed production process, step by step.</p>
+    <div class="feed-photo-grid">
+      <div class="feed-photo-card">
+        <img src="images/feed-1.jpg" alt="Step 1: Raw materials" />
+        <div class="feed-photo-caption">Selecting quality raw materials</div>
+      </div>
+      <!-- Repeat more photo-cards (up to 18 in total for 3x6 grid) -->
+    </div>
+  </div>
+</section>
 <section class="feed-photos-section">
   <div class="feed-photos-inner">
     <h2 class="section-title">How We Produce Our Feed: <em>In Photos</em></h2>
