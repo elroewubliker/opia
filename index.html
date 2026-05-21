@@ -1209,6 +1209,57 @@
     grid-auto-rows: 170px;
   }
 }
+  .feed-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* Always 6 per row on desktop */
+  gap: 12px;
+  margin-top: 32px;
+}
+.feed-photo-card {
+  background: var(--off-white);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--green-light);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 120px;    /* Small fixed size for the card */
+}
+.feed-photo-card img {
+  width: 100%;
+  height: 72px;   /* Small image height for grid */
+  object-fit: cover;
+  background: #eee;
+  border-bottom: 1px solid var(--green-light);
+  display: block;
+}
+.feed-photo-caption {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  font-size: 0.75rem;
+  color: var(--text-mid);
+  text-align: center;
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .feed-photo-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .feed-photo-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .feed-photo-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 </head>
 <body>
@@ -1601,39 +1652,28 @@
   </div>
 </section>
   
-<!-- SECTION: FEED PRODUCTION PHOTOS -->
-  <!-- SECTION: FEED PRODUCTION PHOTOS -->
+  <!-- feed photos -->
 <section class="feed-photos-section">
   <div class="feed-photos-inner">
     <h2 class="section-title">How We Produce Our Feed: <em>In Photos</em></h2>
     <p class="section-body">A behind-the-scenes look at our feed production process, step by step.</p>
     <div class="feed-photo-grid">
       <div class="feed-photo-card">
-        <img src="images/feed-1.jpg" alt="Step 1: Raw materials" />
-        <div class="feed-photo-caption">Selecting quality raw materials</div>
-      </div>
-      <!-- Repeat more photo-cards (up to 18 in total for 3x6 grid) -->
-    </div>
-  </div>
-</section>
-<section class="feed-photos-section">
-  <div class="feed-photos-inner">
-    <h2 class="section-title">How We Produce Our Feed: <em>In Photos</em></h2>
-    <p class="section-body">A behind-the-scenes look at our feed production process, step by step.</p>
-    <div class="feed-photo-grid">
-      <div class="feed-photo-card">
-        <img src="IMG_4759.PNG" alt="Step 1: Raw materials" />
+        <img src="IMG_4759.PNG" alt="Raw materials" />
         <div class="feed-photo-caption">Selecting quality raw materials</div>
       </div>
       <div class="feed-photo-card">
-        <img src="IMG_4746.JPG" alt="Step 2: Mixing ingredients" />
+        <img src="IMG_4746.JPG" alt="Mixing ingredients" />
         <div class="feed-photo-caption">Mixing balanced ingredients</div>
       </div>
       <div class="feed-photo-card">
-        <img src="IMG_4737.JPG" alt="Step 3: Extrusion" />
+        <img src="IMG_4737.JPG" alt="Extrusion" />
         <div class="feed-photo-caption">Extrusion for digestibility</div>
       </div>
-      <!-- Add more photo cards as needed -->
+      <!-- Add more .feed-photo-card as desired for up to 18 cards (3 rows x 6 cols) -->
+    </div>
+  </div>
+</section>
     </div>
   </div>
 </section>
